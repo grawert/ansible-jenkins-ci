@@ -1,0 +1,5 @@
+[openstack-mitaka]
+name=OpenStack Mitaka Repository
+baseurl=http://mirror.centos.org/centos/7/cloud/x86_64/openstack-mitaka/
+enabled=1
+gpgcheck=0
