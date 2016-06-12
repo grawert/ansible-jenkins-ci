@@ -1,0 +1,7 @@
+---
+- name: Install OpenLDAP server and configure example domain
+  hosts: ldap_server
+  become: true
+  remote_user: root
+  roles:
+    - bennojoy.openldap_server

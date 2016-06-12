@@ -1,0 +1,13 @@
+---
+- src: geerlingguy.java
+  path: roles
+- src: https://github.com/grawert/ansible-role-jenkins.git
+  path: roles
+  version: 12952cfff2e7b81fe918c073a57820a96a6aa26b
+  name: geerlingguy.jenkins
+- src: geerlingguy.apache
+  path: roles
+- src: bennojoy.openldap_server
+  path: roles
+- src: https://github.com/openstack/ansible-role-diskimage-builder.git
+  path: roles

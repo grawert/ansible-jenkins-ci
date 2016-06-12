@@ -1,0 +1,7 @@
+---
+- name: Install Jenkins plugins update shell script
+  template: src=templates/jenkins-update-plugins.sh.j2
+            dest="{{jenkins_home}}/jenkins-update-plugins.sh"
+            owner=jenkins group=jenkins mode=0755
+- name: Update all Jenkins plugins
+  command: "{{jenkins_home}}/jenkins-update-plugins.sh"

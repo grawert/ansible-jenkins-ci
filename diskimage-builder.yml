@@ -1,0 +1,12 @@
+---
+- name: Install Jenkins slave node with diskimage-builder environment
+  hosts: jenkins_slave
+  become: true
+  remote_user: root
+  roles:
+    - geerlingguy.java
+    - ansible-role-diskimage-builder
+  tasks:
+    - include: tasks/etc-hosts.yml
+    - include: tasks/jenkins-slave.yml
+    - include: tasks/install-rpm-packages.yml

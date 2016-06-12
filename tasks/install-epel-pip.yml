@@ -1,0 +1,5 @@
+---
+- name: Install EPEL repository
+  package: name=epel-release state=latest
+- name: Install Python pip
+  package: name=python-pip state=latest

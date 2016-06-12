@@ -1,0 +1,7 @@
+--- # can not be used yet: https://github.com/ansible/ansible/issues/13485
+#- name: restart Apache
+#  service: name=httpd state=restarted
+#- name: restart Firewalld
+#  service: name=firewalld state=restarted
+#- name: restart Jenkins
+#  service: name=jenkins state=restarted

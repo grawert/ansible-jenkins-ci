@@ -1,0 +1,9 @@
+---
+- name: Install Python httplib2
+  pip: name=httplib2 state=latest
+- name: Add Jenkins slave nodes
+  uri:
+    url: http://{{jenkins_hostname}}:{{jenkins_http_port}}{{jenkins_url_prefix}}/scriptText/
+    method: POST
+    body: "script={{lookup('template', 'templates/add-slave-node-to-jenkins.groovy.j2')|urlencode}}"
+    HEADER_Content-Type: "application/x-www-form-urlencoded"
