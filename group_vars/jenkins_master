@@ -1,0 +1,99 @@
+---
+java_packages:
+  - 'java'
+
+rpm_packages:
+  - git
+  - python-pip
+  - epel-release
+  - vim
+
+jenkins_plugins:
+  - github
+  - git
+  - ssh
+  - groovy
+  - jquery
+  - job-dsl
+  - ssh-agent
+  - batch-task
+  - ws-cleanup
+  - cron_column
+  - mask-passwords
+  - extra-columns
+  - dashboard-view
+  - nodelabelparameter
+  - managed-scripts
+  - cloudbees-folder
+  - nodelabelparameter
+  - config-file-provider
+  - simple-theme-plugin
+  - parameterized-scheduler
+  - credentials-binding
+  - workflow-step-api
+  - workflow-scm-step
+  - workflow-api
+  - workflow-support
+  - workflow-cps
+  - workflow-cps-global-lib
+  - workflow-job
+  - workflow-durable-task-step
+  - workflow-basic-steps
+  - workflow-multibranch
+  - workflow-aggregator
+  - pipeline-stage-step
+  - pipeline-input-step
+  - pipeline-build-step
+
+jenkins_allowed_users:
+  - 'jenkins-slave'
+  - 'alice'
+  - 'bobby'
+
+apache_create_vhosts: false
+apache_remove_default_vhost: true
+apache_certificate_file: '/etc/ssl/certs/cert.pem'
+
+# jenkins user home dir information
+jenkins_user:  'jenkins'
+jenkins_group: 'jenkins'
+jenkins_home:  "/var/lib/{{jenkins_user}}"
+jenkins_workspace: "{{jenkins_home}}/workspace"
+jenkins_jar_location: /usr/lib/jenkins/jenkins-cli.jar
+
+jenkins_hostname: localhost
+jenkins_http_port: 8080
+jenkins_url_prefix: /
+jenkins_htaccess: "{{jenkins_home}}/httpd.access"
+jenkins_slave_user_name: jenkins-slave
+jenkins_slave_user_password: secret
+
+jenkins_cli_url: "http://{{jenkins_hostname}}:{{jenkins_http_port}}{{jenkins_url_prefix}}"
+jenkins_cli:     "java -jar {{jenkins_jar_location}} -s {{jenkins_cli_url}}"
+
+openstack_auth_url:
+  development: "https://pouta-devel.csc.fi:5001/v2.0"
+  test:        "https://pouta-test.csc.fi:5001/v2.0"
+  production:  "https://pouta.csc.fi:5001/v2.0"
+
+password_credentials:
+  - name: imgbuild Openstack service user
+    credentials_id: "imgbuild_os_credentials"
+    username: "{{lookup('env', 'OS_USERNAME')}}"
+    password: "{{lookup('env', 'OS_PASSWORD')}}"
+
+ssh_credentials:
+  - name: Jenkins user on jenkins-master connecting to slave nodes
+    credentials_id:  "jenkins_ssh_credentials"
+    ssh_key_escaped: "{{lookup('file', 'credentials/jenkins_ssh_key.pem')|replace('\n', '\\n')}}"
+    username: "jenkins"
+  - name: Openstack imgbuild user
+    credentials_id:  "imgbuild_ssh_credentials"
+    ssh_key_escaped: "{{lookup('file', 'credentials/imgbuild_ssh_key.pem')|replace('\n', '\\n')}}"
+    username: "imgbuild"
+
+jenkins_jobs:
+  - name: seed_diskimage-builder
+    template_file: jenkins_job_dib.xml.j2
+    job_file: job_diskimage-builder.xml
+    build: yes

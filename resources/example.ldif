@@ -1,0 +1,26 @@
+dn: dc=example,dc=com
+objectClass: dcObject
+objectClass: organization
+objectClass: top
+dc: example
+o: Example
+
+dn: ou=Users,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Users
+
+dn: cn=alice,ou=Users,dc=example,dc=com
+objectClass: person
+objectClass: top
+sn: Alice
+cn: alice
+userPassword: secret
+
+dn: cn=bobby,ou=Users,dc=example,dc=com
+objectClass: person
+objectClass: top
+sn: Bobby
+cn: bobby
+userPassword: secret
+

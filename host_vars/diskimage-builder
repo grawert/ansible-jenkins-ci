@@ -1,0 +1,9 @@
+--- # CSC specific repo informations
+diskimage_builder_git_dest: /var/lib/diskimage-builder
+diskimage_builder_git_uri: https://github.com/CSC-IT-Center-for-Science/diskimage-builder.git
+diskimage_builder_git_version: csc
+diskimage_builder_install_method: git
+
+rpm_packages:
+  - python-openstackclient
+  - python-heatclient

@@ -1,0 +1,7 @@
+--- # Place custom-config-files.xml to Jenkins directory - this is ugly, but haven't found a better solution
+- name: Install custom-config-files.xml
+  copy: src=resources/custom-config-files.xml
+        dest={{jenkins_home}}/custom-config-files.xml
+        owner={{jenkins_user}} group={{jenkins_group}}
+        mode=0644
+  notify: restart Jenkins

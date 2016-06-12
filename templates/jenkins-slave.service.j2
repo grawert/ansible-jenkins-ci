@@ -1,0 +1,8 @@
+[Unit]
+Description=Jenkins slave daemon
+After=network.target
+
+[Service]
+User=jenkins
+ExecStart=/bin/java -jar {{jenkins_home}}/slave.jar -jnlpUrl https://{{hostvars['jenkins-master']['inventory_hostname']}}/computer/{{inventory_hostname}}/slave-agent.jnlp -noCertificateCheck -auth {{jenkins_slave_user_name}}:{{jenkins_slave_user_password}}
+ExecStop=/usr/bin/killall -w -s 2 java

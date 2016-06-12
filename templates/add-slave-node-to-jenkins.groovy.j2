@@ -1,0 +1,12 @@
+import jenkins.model.*
+import hudson.model.*
+import hudson.slaves.*
+
+{% for host in groups['jenkins_slave'] %}
+Jenkins.instance.addNode(
+new DumbSlave("{{host}}","", "{{jenkins_home}}", "1",
+              Node.Mode.EXCLUSIVE, "{{hostvars[host]['label']}}",
+              new JNLPLauncher(), new RetentionStrategy.Always(),
+              new ArrayList())
+)
+{% endfor %}

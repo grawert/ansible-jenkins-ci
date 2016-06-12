@@ -1,0 +1,23 @@
+---
+- name: Install Jenkins master node
+  hosts: jenkins_master
+  become: true
+  remote_user: root
+  roles:
+    - geerlingguy.jenkins
+    - geerlingguy.apache
+  tasks:
+    - include: tasks/etc-hosts.yml
+    - include: tasks/install-rpm-packages.yml
+    - include: tasks/jenkins-master-apache.yml
+    - include: tasks/jenkins-slave-node-add.yml
+    - include: tasks/jenkins-master-update-plugins.yml
+    - include: tasks/jenkins-custom-config-files.yml
+    - include: tasks/jenkins-credentials-add.yml
+    - include: tasks/jenkins-create-jobs.yml
+  handlers:
+    - name: "restart Apache"
+      service: name=httpd state=restarted
+  handlers:
+    - name: "restart Jenkins"
+      service: name=jenkins state=restarted

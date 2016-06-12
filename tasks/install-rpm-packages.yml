@@ -1,0 +1,8 @@
+---
+- name: Add RDO repository
+  copy: src=resources/rdo.repo
+        dest=/etc/yum.repos.d/rdo.repo
+        owner=root group=root mode=0644
+- name: Install RPM packages
+  package: name="{{item}}" state=latest
+  with_items: "{{rpm_packages}}"

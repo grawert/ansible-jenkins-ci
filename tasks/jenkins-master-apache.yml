@@ -1,0 +1,26 @@
+--- # Configure Apache as frontend for Jenkins
+- name: Install Apache mod_ldap
+  package: name=mod_ldap state=latest
+  notify: restart Apache
+- name: Install libsemanage-python
+  package: name=libsemanage-python state=latest
+- name: Install python-passlib
+  package: name=python-passlib state=latest
+- name: SELinux allow Apache connect to localhost
+  seboolean: name=httpd_can_network_connect state=yes persistent=yes
+- name: Install certificates for Apache
+  copy: src=resources/cert.pem
+        dest={{apache_certificate_file}}
+        owner=apache group=apache mode=0400
+  notify: "restart Apache"
+- name: Deploy Apache proxy fowarding to Jenkins
+  template: src=templates/apache_jenkins_proxy.conf.j2
+            dest=/etc/httpd/conf.d/jenkins_proxy.conf
+            owner=apache group=apache mode=0644
+  notify: "restart Apache"
+- name: Add Jenkins slave credentials to htaccess
+  htpasswd: path="{{jenkins_htaccess}}"
+            name="{{jenkins_slave_user_name}}"
+            password="{{jenkins_slave_user_password}}"
+            owner=apache group=apache mode=0440
+  notify: "restart Apache"

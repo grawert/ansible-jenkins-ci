@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.configfiles.custom.CustomConfigProvider plugin="config-file-provider">
+  <configs>
+    <entry>
+      <string>imgbuild_heat_test_stack</string>
+      <org.jenkinsci.lib.configprovider.model.Config>
+        <id>imgbuild_heat_test_stack</id>
+        <name>imgbuild_heat_test_stack</name>
+        <comment></comment>
+        <content><![CDATA[
+heat_template_version: 2014-10-16
+description: imgbuild test stack
+
+parameters:
+  key_name:
+    type: string
+    description: Name of keypair to assign to servers
+  image_name:
+    type: string
+    description: Image to create instance from
+  private_net_id:
+    type: string
+    description: ID of private network
+    default: imgbuild
+  floating_ip_pool:
+    type: string
+    description: Pool name from which floating IP is taken
+    default: public
+  security_group:
+    type: string
+    description: Name of security group to assign
+    default: ssh
+
+resources:
+  instance:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: { get_param: image_name }
+      flavor: standard.tiny
+      networks:
+      - network: { get_param: private_net_id }
+      security_groups:
+      - { get_param: security_group }
+  floating_ip:
+    type: OS::Nova::FloatingIP
+    properties:
+      pool: { get_param: floating_ip_pool }
+  association:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: floating_ip }
+      server_id: { get_resource: instance }
+]]></content>
+        <providerId>org.jenkinsci.plugins.configfiles.custom.CustomConfig</providerId>
+      </org.jenkinsci.lib.configprovider.model.Config>
+    </entry>
+  </configs>
+</org.jenkinsci.plugins.configfiles.custom.CustomConfigProvider>

@@ -1,0 +1,4 @@
+--- # Deploy Jenkins CI environment
+- include: ldap-server.yml
+- include: jenkins-master.yml
+- include: diskimage-builder.yml
