@@ -1,0 +1,11 @@
+jenkins-master		ansible_host=jenkins-master
+diskimage-builder	ansible_host=diskimage-builder
+
+[ldap_server]
+jenkins-master
+
+[jenkins_master]
+jenkins-master
+
+[jenkins_slave]
+diskimage-builder	label=DIB
