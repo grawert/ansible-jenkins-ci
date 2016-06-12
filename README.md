@@ -1,7 +1,6 @@
 # Setup Jenkins CI environment with Ansible
 
-Ansible playbooks to configure Jenkins CI with Jenkins master
-and slave node with diskimage-builder environment.
+Ansible playbooks to configure Jenkins CI with slave node for diskimage-builder.
 
 Authentication is done with Apache and mod_ldap using OpenLDAP server.
 
@@ -12,14 +11,14 @@ Authentication is done with Apache and mod_ldap using OpenLDAP server.
 
 ## Setup
 
-Install external roles:
+### Install external roles
 
     ansible-galaxy install -r requirements.yml
 
-Credentials:
+### Credentials
 
-See configuration in *group_vars/jenkins_master at *password_credentials*
-and *ssh_credentials*.
+See configuration in `group_vars/jenkins_master` at `password_credentials`
+and `ssh_credentials`.
 
 The following files are expected:
 
@@ -32,11 +31,11 @@ The following environment variables for an Openstack user are expected:
     OS_USERNAME
     OS_PASSWORD
 
-Deploy:
+### Deploy
 
     vagrant up
 
-Login:
+### Login
 
     https://192.168.11.10/
     username: alice
