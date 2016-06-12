@@ -1,0 +1,31 @@
+<VirtualHost *:443>
+  SSLEngine           on
+  SSLCertificateFile  {{apache_certificate_file}}
+  AllowEncodedSlashes NoDecode
+  ProxyPreserveHost   On
+  ProxyRequests       Off
+
+  <Location {{jenkins_url_prefix}}>
+    Options None
+    AllowOverride None
+    Order deny,allow
+    Allow from all
+
+    AuthType Basic
+    AuthName "Use LDAP credentials to login"
+    AuthBasicProvider file ldap
+    AuthUserFile {{jenkins_htaccess}}
+    AuthLDAPSearchAsUser on
+    AuthLDAPInitialBindAsUser on
+    AuthLDAPInitialBindPattern (.+) cn=$1,ou=Users,dc=example,dc=com
+    AuthLDAPUrl ldap://localhost/ou=Users,dc=example,dc=com?cn?sub?(ObjectClass=person)
+
+    require user {{jenkins_allowed_users | join(" ")}}
+
+    ProxyPass        http://localhost:8080{{jenkins_url_prefix}} nocanon
+    ProxyPassReverse http://localhost:8080{{jenkins_url_prefix}}
+    RequestHeader    set X-Forwarded-Proto "https"
+    RequestHeader    set X-Forwarded-Port "443"
+
+  </Location>
+</VirtualHost>
