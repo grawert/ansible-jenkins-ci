@@ -1,0 +1,15 @@
+---
+java_packages:
+  - 'java'
+
+# Jenkins master server information
+jenkins_url_prefix: /
+
+# jenkins user home dir information
+jenkins_user:  'jenkins'
+jenkins_group: 'jenkins'
+jenkins_home:  "/var/lib/{{jenkins_user}}"
+jenkins_workspace: "{{jenkins_home}}/workspace"
+jenkins_htaccess: "{{jenkins_home}}/httpd.access"
+jenkins_slave_user_name: jenkins-slave
+jenkins_slave_user_password: secret
