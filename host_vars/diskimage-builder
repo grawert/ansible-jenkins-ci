@@ -7,3 +7,4 @@ diskimage_builder_install_method: git
 rpm_packages:
   - python-openstackclient
   - python-heatclient
+  - python-swiftclient
