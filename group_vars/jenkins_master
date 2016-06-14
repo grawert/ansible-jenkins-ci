@@ -16,10 +16,11 @@ jenkins_plugins:
   - jquery
   - job-dsl
   - ssh-agent
-  - notification
+  - email-ext
   - batch-task
   - ws-cleanup
   - cron_column
+  - notification
   - mask-passwords
   - extra-columns
   - dashboard-view
@@ -31,6 +32,7 @@ jenkins_plugins:
   - simple-theme-plugin
   - parameterized-scheduler
   - credentials-binding
+  - jenkins-flowdock-plugin
   - workflow-step-api
   - workflow-scm-step
   - workflow-api
