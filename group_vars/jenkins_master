@@ -16,6 +16,7 @@ jenkins_plugins:
   - jquery
   - job-dsl
   - ssh-agent
+  - notification
   - batch-task
   - ws-cleanup
   - cron_column
