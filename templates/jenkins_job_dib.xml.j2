@@ -67,6 +67,18 @@ H/1 7 1,16 * * % DIB_OS_ELEMENT=ubuntu;DIB_RELEASE=xenial;DIB_IMAGE_NAME=Ubuntu-
         sshAgent('imgbuild_ssh_credentials')
     }
 
+    publishers {
+        flowdock('{{flowdock_api_key}}') {
+            tags('diskimage-builder')
+            failure(true)
+            notBuilt(true)
+            fixed(true)
+            unstable(false)
+            success(false)
+            aborted(false)
+        }
+    }
+
     steps {
 
         shell('''

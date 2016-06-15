@@ -95,6 +95,8 @@ ssh_credentials:
     ssh_key_escaped: "{{lookup('file', 'credentials/imgbuild_ssh_key.pem')|replace('\n', '\\n')}}"
     username: "imgbuild"
 
+flowdock_api_key: "{{lookup('env', 'FLOWDOCK_API_KEY')}}"
+
 jenkins_jobs:
   - name: seed_diskimage-builder
     template_file: jenkins_job_dib.xml.j2
