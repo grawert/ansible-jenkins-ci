@@ -18,6 +18,5 @@
   handlers:
     - name: "restart Apache"
       service: name=httpd state=restarted
-  handlers:
     - name: "restart Jenkins"
       service: name=jenkins state=restarted
